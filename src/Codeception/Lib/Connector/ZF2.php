@@ -163,7 +163,11 @@ class ZF2 extends Client
 
     private function createApplication()
     {
-        $this->application = Application::init($this->applicationConfig);
+        $this->application = Application::init(array_merge($this->applicationConfig, [
+            'service_manager' => [
+                'services' => $this->persistentServices
+            ]
+        ]));
         $serviceManager = $this->application->getServiceManager();
 
         $serviceManager->setAllowOverride(true);
